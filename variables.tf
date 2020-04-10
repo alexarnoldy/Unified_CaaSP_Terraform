@@ -76,6 +76,7 @@ variable "admin_only_packages" {
     "-kernel-default-base",
     "nfs-kernel-server", 
     "netcat",
+    "nmap",
     "w3m"
   ]
 
