@@ -138,8 +138,8 @@ variable "network_mode" {
 }
 
 variable "lbs" {
-  default     = 1
-  description = "Number of load-balancer nodes"
+  default     = 0
+  description = "Number of load-balancer nodes. Note that the admin node will eventually be configured to provide a single load balancer instance"
 }
 
 variable "lb_memory" {

@@ -45,8 +45,8 @@ libvirt_keyfile = ""
 
 
 # Deploy 0 load balancers when deploying on a single KVM host, and 1 when deploying across multiple KVM hosts (when it's available)
-# Note that the admin node provides a single load balancer instance
-lbs = 1
+# Note that the admin node will eventually be configured to provide a single load balancer instance
+lbs = 0
 #lb_memory = 4096
 #lb_vcpu = 1
 
