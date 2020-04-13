@@ -3,6 +3,14 @@
 # libvirt_uri = "qemu:///system"
 libvirt_uri = ""
 
+
+# Way of connecting to different KVM servers
+# host_base is the hostname until a final number designator
+#
+#
+#variable "libvirt_host_base" {
+#variable "libvirt_host_number" {
+
 # Path of the key file used to connect to the libvirt server
 # Note this value will be appended to the libvirt_uri as a 'keyfile' query: <libvirt_uri>?keyfile=<libvirt_keyfile>
 # EXAMPLE:
@@ -17,23 +25,47 @@ libvirt_keyfile = ""
 # Identifier to make all your resources unique and avoid clashes with other users of this terraform project
 #stack_name = ""
 
+
+# CaaS Platform registration code ONLY when registering with SCC
+#caasp_registry_code = ""
+
+# RMT server to register against when NOT registering with SCC. Don't include http(s)://
+#rmt_server_name = ""
+
+# DNS domain of the cluster. This will also be used as the name of the CaaS Platform cluster for automated deployment
+#dns_domain = ""
+
 # CIDR of the network
 #network_cidr = ""
 
-# Number of lb nodes
-lbs = 1
 
-# 1 to deploy an admin node (required for automated deployment). 0 for no admin node
+
+
+
+
+
+# Deploy 0 load balancers when deploying on a single KVM host, and 1 when deploying across multiple KVM hosts (when it's available)
+# Note that the admin node provides a single load balancer instance
+lbs = 1
+#lb_memory = 4096
+#lb_vcpu = 1
+
+# Set admins to 1 to deploy an admin node (required for automated deployment). 0 for no admin node
 admins = 1
+#admin_memory = 4096
+#admin_vcpu = 2
+# Admin node provides NFS peristent storage in and automated deployment. Adjust admin_disk_size if more storage is needed
+#admin_disk_size = 25769803776
 
 # Number of master nodes
 masters = 1
+#master_memory = 4096
+#master_vcpu = 2
 
 # Number of worker nodes
 workers = 2
-
-# Name of DNS domain
-#dns_domain = ""
+#worker_memory = 4096
+#worker_vcpu = 2
 
 # Username for the cluster nodes
 # EXAMPLE:
@@ -67,14 +99,15 @@ lb_repositories = {}
 #  "-kernel-default-base"
 #]
 
-# ssh keys to inject into all the nodes
+# SSH keys to be injected into the cluster nodes. If deploying an admin node, should include the key from that node.
 # EXAMPLE:
 # authorized_keys = [
-#  "ssh-rsa <key-content>"
+#  "ssh-rsa <key1-content>",
+#  "ssh-rsa <key2-content>"
 # ]
 #authorized_keys = [
 #  ""
 #]
 
 # IMPORTANT: Replace these ntp servers with ones from your infrastructure
-ntp_servers = []
+#ntp_servers = []

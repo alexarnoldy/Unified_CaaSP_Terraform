@@ -65,7 +65,7 @@ variable "packages" {
     "-kernel-default-base"
   ]
 
-  description = "List of packages to install"
+  description = "List of packages to install on all nodes"
 }
 
 variable "admin_only_packages" {
@@ -75,8 +75,9 @@ variable "admin_only_packages" {
     "kernel-default",
     "-kernel-default-base",
     "nfs-kernel-server", 
-    "netcat",
+    "netcat-openbsd",
     "nmap",
+    "ipcalc",
     "w3m"
   ]
 
@@ -121,7 +122,7 @@ variable "rmt_server_name" {
 variable "dns_domain" {
   type        = string
   default     = "caasp.local"
-  description = "Name of DNS Domain"
+  description = "Name of DNS Domain. This will also be used as the name of the CaaS Platform cluster for automatic deployment"
 }
 
 variable "network_cidr" {
