@@ -44,9 +44,11 @@ libvirt_keyfile = ""
 
 
 
-# Deploy 0 load balancers when deploying on a single KVM host, and 1 when deploying across multiple KVM hosts (when it's available)
+# Set create_lb to false when deploying on a single KVM host, and true when deploying across multiple KVM hosts (when that feature is available)
 # Note that the admin node will eventually be configured to provide a single load balancer instance
-lbs = 0
+# Enable creation of LB node
+create_lb = false
+#lbs = 0
 #lb_memory = 4096
 #lb_vcpu = 1
 

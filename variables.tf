@@ -137,9 +137,15 @@ variable "network_mode" {
   description = "Network mode used by the cluster"
 }
 
-variable "lbs" {
-  default     = 0
-  description = "Number of load-balancer nodes. Note that the admin node will eventually be configured to provide a single load balancer instance"
+#variable "lbs" {
+#  default     = 0
+#  description = "Number of load-balancer nodes. Note that the admin node will eventually be configured to provide a single load balancer instance"
+#}
+
+variable "create_lb" {
+  type        = bool
+  default     = true
+  description = "Create load balancer node exposing master nodes"
 }
 
 variable "lb_memory" {
