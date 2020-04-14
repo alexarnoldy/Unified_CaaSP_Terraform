@@ -37,7 +37,7 @@ data "template_file" "admin_commands" {
 
 
 data "template_file" "admin-cloud-init" {
-  template = file("cloud-init/admin-common.tpl")
+  template = file("cloud-init/admin-cloud-init.tpl")
 
   vars = {
     authorized_keys 	= join("\n", formatlist("  - %s", var.authorized_keys))
