@@ -22,7 +22,7 @@
 . Ensure the libvirt user is in the libvirt group and has passwordless sudo privileges
 . Start ssh-agent with the ssh key that provides passwordless ssh access
 . Deploy with ./cluster-deploy.sh
-. Destroy with ./cluster-destroy.sh
+.. Destroy with ./cluster-destroy.sh
 
 
 // vim: set syntax=asciidoc:
