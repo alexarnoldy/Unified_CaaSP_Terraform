@@ -1,16 +1,16 @@
-STATE of this repo: Generally working, but being updated frequently. Still pretty brittle due to lots of hardcoded parameters.
+==== STATE of this repo: Generally working, but being updated frequently. Still pretty brittle due to lots of hardcoded parameters.
 
 
-Need to fix:
+==== Need to fix:
 * Remove hardcoded references to RMT server
 * Need to be able to pass helm server into admin node from within variables.tf file
 * Need to be able to disable NFS server and NFS StorageClass from within variables.tf file
 ** Could also use cluster-deploy.sh to set keys/values in a file, b64 encode that file then sed it into the admin node cloud-init file
 
-Dependencies:
+==== Dependencies:
 * Must use RMT server as Helm server is colocated 
 
-Deployment overview:
+==== Deployment overview:
 . Install Terraform
 . Install the terraform-libvirt-provider
 . Download the skuba repo
