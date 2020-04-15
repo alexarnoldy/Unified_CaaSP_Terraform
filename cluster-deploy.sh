@@ -5,8 +5,8 @@
 ###
 #Variables
 ###
-TF_DIR=/home/admin/new_SUSECon/terraform
-STATE_DIR=/home/admin/new_SUSECon/terraform/state
+TF_DIR=${PWD}
+STATE_DIR=${PWD}/state
 QEMU_USER=admin
 QEMU_HOST_PREFIX=infra
 DOMAIN=susecon.local
