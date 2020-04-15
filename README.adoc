@@ -24,3 +24,6 @@ Deployment overview:
 . Deploy with ./cluster-deploy.sh
 . Destroy with ./cluster-destroy.sh
 
+
+// vim: set syntax=asciidoc:
+
