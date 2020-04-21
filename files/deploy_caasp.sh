@@ -53,8 +53,13 @@ ssh-add /home/sles/.ssh/id_rsa
 ## Populates the known_hosts file with the FQDN of the cluster nodes
 ### To ssh with an alias or short name, create a .ssh/config entry for 
 ### each node where HOST points to the alias and HOSTNAME points to the FQDN
-ssh-keyscan -H -f /home/sles/.all_nodes > /home/sles/.ssh/known_hosts
-
+## Old way worked, but new way should be better `ssh-keyscan -H -f /home/sles/.all_nodes > /home/sles/.ssh/known_hosts`
+cat /dev/null > ~/.ssh/known_hosts
+for EACH in $(cat ~/autoyast_templates/.all_nodes)
+do 
+      ssh-keyscan ${EACH} >> ~/.ssh/known_hosts
+      ssh-keyscan $(getent hosts ${EACH} | awk '{print$1}') >> ~/.ssh/known_hosts
+done
 
 ## Initialize a new cluster
 ### Set API_ENDPOINT to the FQDN of the load balancer VIP or of the master in case of a single master deployment
