@@ -55,7 +55,7 @@ ssh-add /home/sles/.ssh/id_rsa
 ### each node where HOST points to the alias and HOSTNAME points to the FQDN
 ## Old way worked, but new way should be better `ssh-keyscan -H -f /home/sles/.all_nodes > /home/sles/.ssh/known_hosts`
 cat /dev/null > ~/.ssh/known_hosts
-for EACH in $(cat ~/autoyast_templates/.all_nodes)
+for EACH in $(cat ~/.all_nodes)
 do 
       ssh-keyscan ${EACH} >> ~/.ssh/known_hosts
       ssh-keyscan $(getent hosts ${EACH} | awk '{print$1}') >> ~/.ssh/known_hosts
@@ -64,7 +64,7 @@ done
 ## Initialize a new cluster
 ### Set API_ENDPOINT to the FQDN of the load balancer VIP or of the master in case of a single master deployment
 #API_ENDPOINT=master-0.caasp-susecon.lab
-API_ENDPOINT=$(grep master /home/sles/.all_nodes | head -1)
+API_ENDPOINT=$(grep master- /home/sles/.all_nodes | head -1)
 ## CLUSTER_NAME is populated at the beginning of the script
 
 cd /home/sles; skuba cluster init --control-plane ${API_ENDPOINT} ${CLUSTER_NAME}
@@ -72,7 +72,7 @@ cd $CLUSTER_NAME
 
 
 ## Bootstrap the cluster with the first master node listed in /home/sles/.all_nodes
-MASTER_FQDN=$(grep master /home/sles/.all_nodes | head -1)
+MASTER_FQDN=$(grep master-[0-9] /home/sles/.all_nodes | head -1)
 MASTER=$(echo $MASTER_FQDN | awk -F. '{print$1}')
 
 ## Ensure the first master node is responding on port 22
@@ -82,14 +82,14 @@ skuba node bootstrap --user sles --sudo --target ${MASTER_FQDN} ${MASTER}
 
 ## Join the remaining master nodes to the cluster
 ### Will simply bypass in the case of a single master deployment
-for MASTER_FQDN in `grep master /home/sles/.all_nodes | tail -n+2`; do \
+for MASTER_FQDN in `grep master-[0-9] /home/sles/.all_nodes | tail -n+2`; do \
 MASTER=`echo $MASTER_FQDN | awk -F. '{print$1}'`; \
 skuba node join --role master --user sles --sudo \
 --target $MASTER_FQDN $MASTER; \
 done
 
 ## Join the worker nodes to the cluster
-for WORKER_FQDN in `grep worker /home/sles/.all_nodes`; do \
+for WORKER_FQDN in `grep worker- /home/sles/.all_nodes`; do \
 WORKER=`echo $WORKER_FQDN | awk -F. '{print$1}'`; \
 skuba node join --role worker --user sles --sudo \
 --target $WORKER_FQDN $WORKER; \
