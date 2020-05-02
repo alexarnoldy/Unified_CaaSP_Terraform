@@ -1,8 +1,8 @@
 #!/bin/bash
 
-CLOUD_INIT_DIR=../cloud-init/
-CLOUD_INIT_FILE=admin-cloud-init.tpl
 FILENAME=deploy_caasp.sh
+CLOUD_INIT_FILE=admin-cloud-init.tpl
+CLOUD_INIT_DIR=../cloud-init/
 OLD_FILE_MD5SUM=$(md5sum ${FILENAME}.gz.b64 | awk '{print$1}')
 #echo -n "    content: " > ${FILENAME}-content.txt
 gzip -c ${FILENAME} > ${FILENAME}.gz
