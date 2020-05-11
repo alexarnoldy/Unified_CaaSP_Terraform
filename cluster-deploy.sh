@@ -13,6 +13,14 @@ DOMAIN=susecon.local
 ACTION="apply -auto-approve"
 ###
 
+###
+#Functions
+###
+function func_exec_tf_action {
+	cd ${TF_DIR}; terraform ${ACTION} -state=${STATE_DIR}/${QEMU_HOST_PREFIX}${EACH}.tfstate -var libvirt_host_number=${EACH}&
+}
+
+
 DEPLOYorDESTROY="$(basename $0)"
 [ $DEPLOYorDESTROY = cluster-destroy.sh ] && ACTION="destroy -auto-approve"
 
@@ -30,22 +38,24 @@ case $HOSTS in
 	*..*)
 		eval '
 		for EACH in {'"$HOSTS"'}; do
-			#### Enable to deploy one node to a pre-existing public bridge. Can be used for a global cluster spanning KVM hosts
+			#### START Enable to deploy one node to a pre-existing public bridge. Can be used for a global cluster spanning KVM hosts
 			### Update the IP address for the node to 240 + the KVM host "libvirt_host_number" and create the new network-*.cfg file
 			#IPADDR=$(echo $((240+${EACH})))
 			#sed "s/XYZ/${IPADDR}/" global-cluster-cloud-init/network.cfg > global-cluster-cloud-init/network-${EACH}.cfg
-			cd ${TF_DIR}; terraform ${ACTION} -state=${STATE_DIR}/${QEMU_HOST_PREFIX}${EACH}.tfstate -var libvirt_host_number=${EACH}&
+			#### END Enable to deploy one node to a pre-existing public bridge. Can be used for a global cluster spanning KVM hosts
+			func_exec_tf_action
 		done
 		'
 		;;
 	*)
 		for EACH in $(echo ${HOSTS})
 		do
-			#### Enable to deploy one node to a pre-existing public bridge. Can be used for a global cluster spanning KVM hosts
+			#### START Enable to deploy one node to a pre-existing public bridge. Can be used for a global cluster spanning KVM hosts
 			## Update the IP address for the node to 240 + the KVM host "libvirt_host_number" and create the new network-*.cfg file
 			#IPADDR=$(echo $((240+${EACH})))
 			#sed "s/XYZ/${IPADDR}/" global-cluster-cloud-init/network.cfg > global-cluster-cloud-init/network-${EACH}.cfg
-			cd ${TF_DIR}; terraform ${ACTION} -state=${STATE_DIR}/${QEMU_HOST_PREFIX}${EACH}.tfstate -var libvirt_host_number=${EACH}&
+			#### END Enable to deploy one node to a pre-existing public bridge. Can be used for a global cluster spanning KVM hosts
+			func_exec_tf_action
 		done
 		;;
 esac
