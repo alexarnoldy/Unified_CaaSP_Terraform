@@ -3,13 +3,14 @@
 
 ==== Need to fix:
 * Need to be able to disable NFS server and NFS StorageClass from within variables.tf file
-* Remove hardcoded references to RMT server (done but need to verify)
 * Need to be able to pass helm server info into admin node from within variables.tf file
 ** Could also use cluster-deploy.sh to set keys/values in a file, b64 encode that file then sed it into the admin node cloud-init file
 * Found that cluster-deploy.sh is dependent on appropriate entries for the KVM user and hosts in .ssh/config file
+* Remove hardcoded references to RMT server - DONE
 
 ==== Dependencies:
 * Must use RMT server as Helm server 
+* Currently only deploys one cluster per KVM host and cannot deploy a cluster across hosts
 
 ==== Deployment overview:
 . Install Terraform
@@ -19,10 +20,10 @@
 . Copy the contents of this  repo into the skuba/ci/infra/libvirt directory
 . Update terraform.tfvars file with the specifics for your environment
 . Update the cluster-deploy.sh script variables with the specifics for your environment
-. Ensure the local user has passwordless ssh to the libvirt user specified in .tfvars
-. Ensure the libvirt user is in the libvirt group and has passwordless sudo privileges
-. Create an entry for the libvirt user on the KVM host in the .ssh/config file
-. Start ssh-agent with the ssh key that provides passwordless ssh access
+. Update the infrastructre directory with a file for each KVM host (the file name is the FQDN of the host) containing the KVM user and SSH public key
+. Ensure the local user has passwordless ssh to each KVM host as its KVM user 
+. Ensure the KVM user is in the libvirt group and has passwordless sudo privileges
+//. Start ssh-agent with the ssh key that provides passwordless ssh access
 . Deploy with ./cluster-deploy.sh
 .. Destroy with ./cluster-destroy.sh
 
