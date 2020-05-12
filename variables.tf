@@ -1,6 +1,16 @@
 
 ## Providing a libvirt_host_base hostname and a libvirt_host_number suffix allows deploying multiple clusters across multiple KVM hosts
 
+variable "libvirt_hostname" {
+  default     = "infra2.caaspv4.com"
+  description = "Hostname for KVM hosts on which to deploy a cluster"
+}
+
+variable "libvirt_user" {
+  default     = "admin"
+  description = "Name of the user in the libvirt group on the KVM host"
+}
+
 variable "libvirt_host_base" {
   default     = "infra"
   description = "Base name for KVM hosts on which to deploy a cluster"
