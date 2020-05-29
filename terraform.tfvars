@@ -107,9 +107,9 @@ lb_repositories = {}
 #  "ssh-rsa <key1-content>",
 #  "ssh-rsa <key2-content>"
 # ]
-#authorized_keys = [
-#  ""
-#]
+authorized_keys = [
+"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDTjS+gBCJhFiOPG5HXGScCWvDWpIqIRQhOD1l9p0HsvMFtESH6dkebpFlzFOENoPb8b5SUGL04NFRt8yVEl7czPMhWMrCWE/fi0S6Bn36qgNCyDjMZlsvPrxNrXLEkvqT21GCNjv1PSYXggwlULpxMGQq+e4bgFxA4O9WEQWyYpyfwqxD0H9i9+N55V19AbH8acuqcF4vSSGXEupNeX/Vbtq1xQs0ZHLQ/PLRCLs4nVlSfgOAKMZ9I6th6KwKyTSni2UZDhJGaZOTxulOtPKEcpquCBiBtIGjolkgbs9l2T2PT2Nl7mvq6Pm19IG3x1Z5AWqPVIHwN2AmN3T6Xon71 admin@infra4", "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCj5FvgXJCXL8I49Cp4Vua6zOI0eWdSEkPGKyu0HI0KW4o5H2yFDMWZrjIpHhJW3Ohlwg2IrvX/WRstYKm/YPAMNa8ZrSycwio5DMsIOo8I1k5nH00HAEuHy8fGJyUwXbKK9JF2xEmofxwv/mHxAevvsuKEiU20CVg5f40kC4qT7CzYFJfrbXTxZQmHys1CuOgiNV5RvzfZmDEeICxcQlClzw0bs5oyTL7tXbYM7Pt4jnwCteW5zZK9sd7K8ULe6M0jbgFH2GpUOGt7/WsSqi2ZjInuFcsEnx6wbSNlZwtiYHYH7FGMwF/ga90J2dwjtBVJhCLzJ/UnlWCmPqIbJrBf sles@hol1289-base"
+]
 
 # IMPORTANT: Replace these ntp servers with ones from your infrastructure
 #ntp_servers = []

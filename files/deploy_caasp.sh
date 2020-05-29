@@ -136,7 +136,7 @@ kubectl create clusterrolebinding tiller \
 helm init \
     --tiller-image registry.suse.com/caasp/v4/helm-tiller:2.16.1 \
     --service-account tiller
-kubectl -n kube-system wait --for=condition=available --timeout=300s deployment/tiller-deploy
+kubectl -n kube-system wait --for=condition=available --timeout=600s deployment/tiller-deploy
 #sleep 60
 until sudo showmount -e; do echo "NFS server not ready"; done
 IP_ADDR=$(ip a | grep eth0$ | awk '/inet/ {print$2}' | awk -F/ '{print$1}')
@@ -162,5 +162,8 @@ echo export KUBECONFIG=${HOME}/${CLUSTER_NAME}/admin.conf >> /home/${USER}/.bash
 cd ${HOME}/${CLUSTER_NAME}; skuba cluster status
 kubectl get nodes -o wide
 
+## Additional cluster test. Very specific to one environment. Comment out or adjust as needed
+sleep 30
+bash /tmp/k8s-test.sh
 
 
