@@ -1,0 +1,81 @@
+####
+## These variables need to be appended to the end of the skuba variables.tf file to provide the extra resources needed to 
+## auto-deploy the CaaSP cluster after Terraform has deployed the cluster nodes.
+####
+
+####
+## Different ways of identifying the target KVM host to allow for deploying N number of clusters simultaneously
+####
+
+variable "libvirt_hostname" {
+  default     = "infra2.caaspv4.com"
+  description = "Hostname for KVM hosts on which to deploy a cluster"
+}
+
+variable "libvirt_user" {
+  default     = "admin"
+  description = "Name of the user in the libvirt group on the KVM host"
+}
+
+variable "libvirt_host_base" {
+  default     = "infra"
+  description = "Base name for KVM hosts on which to deploy a cluster"
+}
+
+variable "libvirt_host_number" {
+  default     = "2"
+  description = "Suffix to identify the KVM host on which to deploy a cluster"
+}
+
+####
+## Support for deploying an admin node dedicated to the cluster, which is required to auto-deploy the cluster
+####
+
+variable "admins" {
+  default     = 1
+  description = "1 for fully automated deployment. 0 for no admin node to be deployed with the cluster"
+}
+
+variable "admin_memory" {
+  default     = 4096
+  description = "The amount of RAM for the admin"
+}
+
+variable "admin_vcpu" {
+  default     = 2
+  description = "The amount of virtual CPUs for the admin"
+}
+
+variable "admin_disk_size" {
+  default     = "25769803776"
+  description = "Disk size (in bytes)"
+}
+
+variable "admin_only_packages" {
+  type = list(string)
+
+  default = [
+    "kernel-default",
+    "-kernel-default-base",
+    "nfs-kernel-server", 
+    "netcat-openbsd",
+    "nmap",
+    "ipcalc",
+    "w3m"
+  ]
+
+  description = "List of packages to install on the admin node"
+}
+
+## Haven't been able to make this work so the pattern is installed via a command in cloud-init
+#variable "admin_only_patterns" {
+#  type = list(string)
+#
+#  default = [
+#    "SUSE-CaaSP-Management"
+#  ]
+#
+#  description = "List of patterns to install on the admin node"
+#}
+
+

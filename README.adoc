@@ -18,6 +18,7 @@
 . Download the skuba repo
 . Downlod this repo
 . Copy the contents of this  repo into the skuba/ci/infra/libvirt directory
+. Append extra-variables-tf file to the variable.tf file
 . Run `terraform init`
 . Update terraform.tfvars file with the specifics for your environment
 . Update the cluster-deploy.sh script variables with the specifics for your environment
