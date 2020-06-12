@@ -84,7 +84,7 @@ resource "libvirt_domain" "admin" {
   }
 
   network_interface {
-    network_id     = libvirt_network.network.id
+    network_id     = var.network_name == "" ? libvirt_network.network.0.id : null
     hostname       = "${var.stack_name}-admin-${count.index}"
     addresses      = [cidrhost(var.network_cidr, 256 + count.index)]
     wait_for_lease = true

@@ -15,14 +15,20 @@
 ==== Deployment overview:
 . Install Terraform
 . Install the terraform-libvirt-provider
-. Download the skuba repo
-. Downlod this repo
-. Copy the contents of this  repo into the skuba/ci/infra/libvirt directory
-. Append extra-variables-tf file to the variable.tf file
+. Clone the skuba repo: `git clone https://github.com/SUSE/skuba.git`
+. Clone this repo: `git clone https://github.com/alexarnoldy/Unified_CaaSP_Terraform.git`
+. Copy the contents of this repo into the skuba/ci/infra/libvirt directory: `cp -pr Unified_CaaSP_Terraform/* skuba/ci/infra/libvirt/`
+. (Optional) Create a soft link to the libvirt directory to make it easier to access: `ln -s skuba/ci/infra/libvirt/ libvirt`
+. Append extra-variables-tf file to the variable.tf file: `cp -p variables.tf variables.tf.orig && cat extra-variables-tf >> variables.tf`
+* NOTE: The default deployment provides an NFS StorageClass with an NFS share from the admin node. If this is desired, be sure to add `nsf-client` to the "packages" variable in variables.tf
 . Run `terraform init`
-. Update terraform.tfvars file with the specifics for your environment
-. Update the cluster-deploy.sh script variables with the specifics for your environment
 . Update the infrastructre directory with a file for each KVM host (the file name is the FQDN of the host) containing the KVM user and SSH public key
+. Create an images directory: `mkdir images/`
+. Download a SLES15 SP1 JeOS cloud image (i.e. SLES15-SP1-JeOS.x86_64-15.1-OpenStack-Cloud-QU*.qcow2) into the images/ directory from https://downloads.suse.com
+. Update terraform.tfvars file with the specifics for your environment including, at a minimum: 
+* The `image_uri`, i.e. `image_uri = "images/SLES15-SP1-JeOS.x86_64-15.1-OpenStack-Cloud-QU2.qcow2"`
+* The CaaS Platform registration code or the RMT server name (i.e. rmt_server_name = "rmt.example.com")
+. Update the cluster-deploy.sh script variables with the specifics for your environment
 . Ensure the local user has passwordless ssh to each KVM host as its KVM user 
 . Ensure the KVM user is in the libvirt group and has passwordless sudo privileges
 //. Start ssh-agent with the ssh key that provides passwordless ssh access

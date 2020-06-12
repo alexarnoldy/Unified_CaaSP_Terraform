@@ -83,7 +83,7 @@ resource "libvirt_domain" "worker" {
   }
 
   network_interface {
-    network_id     = libvirt_network.network.id
+    network_id     = var.network_name == "" ? libvirt_network.network.0.id : null
     hostname       = "${var.stack_name}-worker-${count.index}"
     addresses      = [cidrhost(var.network_cidr, 768 + count.index)]
     wait_for_lease = true
